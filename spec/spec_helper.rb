@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'base'
+require 'tau'
+require 'webmock/rspec'
+
+# Load support files
+Dir[File.join(__dir__, 'support', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -12,5 +16,14 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  # Disable real HTTP requests in tests
+  config.before(:each) do
+    WebMock.disable_net_connect!(allow_localhost: true)
+  end
+
+  config.after(:each) do
+    WebMock.reset!
   end
 end

@@ -1,9 +1,8 @@
-inherit_from: .rubocop_todo.yml
-
-plugins:
-  - rubocop-rake
-  - rubocop-rspec
-  - rubocop-yard
-
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 3.0
+  SuggestExtensions: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
